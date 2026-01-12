@@ -19,8 +19,15 @@ export class MyPipelineStack extends cdk.Stack {
       })
     });
 
-    pipeline.addStage(new MyPipelineAppStage(this, "test", {
-      env: { account: "009087543814", region: "us-west-2" }
+    const wave = pipeline.addWave('wave');
+    wave.addStage(new MyPipelineAppStage(this, 'MyAppEU', {
+      env: { account: '009087543814', region: 'eu-west-2' }
     }));
+    wave.addStage(new MyPipelineAppStage(this, 'MyAppUS', {
+      env: { account: '009087543814', region: 'us-west-2' }
+    }));
+    // pipeline.addStage(new MyPipelineAppStage(this, "test", {
+    //   env: { account: "009087543814", region: "us-west-2" }
+    // }));
   }
 }
